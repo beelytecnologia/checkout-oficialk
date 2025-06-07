@@ -1,0 +1,28 @@
+/* cores e raios reutilizáveis — mantenha no “styles.scss” global ou no topo
+   do seu componente, antes de qualquer seletor                           */
+   :root {
+    --brand-light : #F3ECDE;   /* bege clarinho - fundo dos cards */
+    --brand       : #B38A44;   /* dourado queijo */
+    --brand-dark  : #59391B;   /* marrom castanho */
+    --text        : #1F1F1F;
+    --radius      : 14px;
+    --shadow      : 0 6px 14px rgba(0,0,0,.08);
+  }
+
+body {
+  font-family: 'Poppins', sans-serif;
+  margin: 0; // Boa prática zerar a margem do body
+  padding: 10px;
+  background-color: white;
+}
+app-root{
+  background-color: white;
+}
+
+// Você também pode querer que os inputs e botões herdem a fonte explicitamente
+input, button, textarea, select {
+  font-family: inherit;
+}
+span{
+}
+

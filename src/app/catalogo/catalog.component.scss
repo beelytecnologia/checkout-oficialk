@@ -1,0 +1,630 @@
+/* ==========================================================
+   CATÁLOGO – estilo mobile-first (Empório Herman)
+   ========================================================== */
+   :host {
+    /* aplica Poppins em todo o host do componente */
+    font-family: 'Poppins', sans-serif;
+  }
+
+  /* -------- CONTÊINER GERAL -------- */
+  .catalog-container {
+    padding: 1rem .75rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex
+    ;
+        flex-direction: column;
+        gap: 10px;
+  }
+
+  /* -------- TOOLBAR -------- */
+  .catalog-toolbar {
+    border: none;
+    background-color: white;
+    h2 {
+      font-size: 1.35rem;
+      letter-spacing: .2px;
+      margin: 0;
+    }
+
+    /* botão do carrinho */
+    .p-button {
+      color: var(--brand-dark);
+      border: none;
+      box-shadow: var(--shadow);
+
+      &:hover { background: var(--brand-light); }
+    }
+
+    .p-badge {
+      background: var(--brand);
+      color: #fff;
+      font-size: .75rem;
+    }
+  }
+.p-select-list{
+  background-color: white !important;
+}
+  /* -------- FILTROS -------- */
+  .filters-section {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: .75rem;
+
+    .p-inputtext,
+    .p-dropdown {
+      width: 100%;
+      padding: .55rem .75rem;
+      border: 1px solid #ddd;
+      border-radius: var(--radius);
+      font-size: .95rem;
+    }
+
+    /* 2 colunas a partir de 600 px */
+    @media (min-width:600px){
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  /* -------- TÍTULO DE CATEGORIA -------- */
+  .cat-title {
+    width: 100%;
+    border-left: 4px solid var(--brand);
+    padding-left: .6rem;
+    margin: 1.2rem 0 .6rem;
+    font-weight: 600;
+    font-size: 1.15rem;
+    color: var(--brand-dark);
+  }
+
+  /* -------- GRID DE PRODUTOS -------- */
+  .product-grid {
+    display: grid;
+    gap: 1rem;
+
+    /* 2 colunas ≥480px, 3 ≥768px, 4 ≥1024px */
+    grid-template-columns: repeat(auto-fill,minmax(160px,1fr));
+  }
+
+  /* -------- CARD DE PRODUTO -------- */
+  .product-card {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    border: none;
+    box-shadow: var(--shadow);
+    border-radius: var(--radius);
+    background: var(--brand-light);
+    transition: transform .15s ease;
+
+    &:hover { transform: translateY(-4px); }
+
+    /* imagem */
+    .product-image-container{
+      position: relative;
+      width: 100%;
+      padding-top: 72%;          /* aspect-ratio aproximado */
+      overflow: hidden;
+      border-radius: var(--radius) var(--radius) 0 0;
+
+      .product-image{
+        position: absolute; inset: 0;
+        width: 100%; height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    /* corpo */
+    .p-card-body{
+      padding: .9rem .9rem .6rem;
+    }
+
+    .product-name{
+      font-size: .95rem;
+      font-weight: 500;
+      margin: 0 0 .3rem;
+      color: var(--text);
+    }
+
+    .product-price{
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--brand-dark);
+      margin-bottom: .6rem;
+    }
+
+    /* footer (controles de qty) */
+    .p-card-footer{
+      margin-top: auto;
+      padding: 0 .9rem .9rem;
+      border-top: 1px solid rgba(0,0,0,.06);
+
+      .quantity-controls{
+        display: flex; align-items: center; gap: .5rem;
+
+        .p-button{
+          width: 36px; height: 36px;
+          border-radius: 8px;
+        }
+
+        .quantity-value{
+          width: 42px;
+          border-radius: 8px;
+          text-align: center;
+          font-weight: 600;
+        }
+      }
+    }
+  }
+
+  /* -------- PAGINADOR -------- */
+  :host ::ng-deep .p-paginator{
+    margin-top: 1.25rem;
+    border: none;
+    background: transparent;
+    .p-paginator-page,
+    .p-dropdown{
+      border-radius: var(--radius);
+    }
+    .p-paginator-page.p-highlight{
+      background: var(--brand-dark);
+      color: #fff;
+    }
+  }
+
+  /* -------- MODAL CARRINHO -------- */
+  :host ::ng-deep .p-dialog{
+    border-radius: var(--radius);
+
+    .p-dialog-header{
+      background: var(--brand-dark);
+      color: #fff;
+      padding: .85rem 1.25rem;
+      border-top-left-radius: var(--radius);
+      border-top-right-radius: var(--radius);
+    }
+
+    .p-dialog-content{
+      padding: 1rem 1.25rem 0;
+    }
+
+    .item{
+      display: flex; justify-content: space-between;
+      padding: .45rem 0;
+      border-bottom: 1px dashed rgba(0,0,0,.08);
+      .name{ max-width:65%; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+      .qty { color: var(--brand-dark); font-weight:600; }
+    }
+
+
+
+    .p-selectbutton .p-button{
+      border-radius:9999px!important;
+      padding:.4rem 1rem;
+    }
+
+    /* footer */
+    .p-dialog-footer{
+      padding: 1rem 1.25rem 1.25rem;
+      display:flex; flex-wrap:wrap; gap:.75rem;
+      .btn-primary{
+        flex:1 1 140px;
+        background:var(--brand-dark);
+        color:#fff; border:none; border-radius:9999px;
+        &:hover{ background:var(--brand); }
+      }
+    }
+  }
+
+  /* -------- MENSAGENS (lista vazia / carregando) -------- */
+  .text-center.py-5{
+    color:#777;
+    font-style:italic;
+  }
+
+  /* ==========================================================
+     FIM
+     ========================================================== */
+/* ===== VARIAÇÕES MAIS CLARAS ===== */
+:root {
+  --brand-light : #FFFDF8;   /* creme bem claro */
+  --brand       : #E0B76F;   /* dourado pastel */
+  --brand-dark  : #8B5A2B;   /* marrom médio (não tão escuro) */
+}
+
+/* TOOLBAR → agora clara com texto marrom */
+.catalog-toolbar{
+  color: var(--brand-dark);
+  box-shadow: 0 2px 6px rgba(0,0,0,.05);
+
+  h2{ font-size:1.3rem; }
+
+  .p-button{
+    background: var(--brand-dark);
+    color:#fff;
+
+    &:hover{ background: var(--brand); }
+  }
+}
+
+/* EXTRA PADDING ENTRE SEÇÕES */
+.catalog-container{ padding:1rem 1rem 2rem; }
+
+/* CARDS  – sombras + espaçamento ajustados */
+.product-card{
+  box-shadow: 0 4px 12px rgba(0,0,0,.06);
+  margin-bottom: .5rem;          /* gap vertical extra */
+}
+
+/* QUANTIDADE → texto centralizado com largura fixa */
+.quantity-value{
+  width: 2.5rem;
+  text-align: center;
+  font-weight:600;
+  color: var(--brand-dark);
+  background:#fff;
+  border-radius:8px;
+}
+
+/* Paginador highlight mais suave */
+:host ::ng-deep .p-paginator .p-paginator-page.p-highlight{
+  background: var(--brand);
+  color:#fff;
+}
+/* host todo branco (mata “dark” que sobrar) */
+:host{
+  display:block;
+  background:#fff;
+  color:#1f1f1f;
+}
+
+/* inputs não colados nas bordas do card preto (que já não existirá) */
+.filters-section{
+  margin-bottom:1.25rem;
+
+  .p-inputtext,
+  .p-dropdown{
+    box-shadow:0 2px 6px rgba(0,0,0,.04);
+  }
+}
+
+/* cards um pouco mais claros para destacar */
+.product-card{
+  background:#ffffff;
+  border:1px solid rgba(0,0,0,.05);
+}
+
+/* quantidade: alinha verticalmente com os botões */
+.quantity-value{
+  line-height:36px;   /* mesma altura dos botões */
+  height:36px;
+}
+/* -------- CARD DE PRODUTO -------- */
+.product-card{
+  /* …já existe… */
+  overflow: hidden;            /* <── garante que nada saia do card   */
+  border-radius: var(--radius);
+
+  /* se quiser sombra visível além do radius, remova overflow e deixe
+     apenas no container de imagem – mas o mais simples é assim       */
+}
+
+/* container da imagem */
+.product-image-container{
+  width: 100%;
+  aspect-ratio: 4 / 3;         /* mais legível que padding-top        */
+  overflow: hidden;            /* recorte interno                     */
+}
+
+/* própria imagem */
+.product-image{
+  width: 100%;
+  height: 100%;
+  display: block;              /* remove pequeno gap inline-img       */
+  object-fit: cover;
+  border-top-left-radius: var(--radius);
+  border-top-right-radius: var(--radius);
+}
+/* ========= COR & PADDING EM INPUTS ========= */
+.filters-section{
+
+  /* texto visível */
+  .p-inputtext, .p-dropdown-label{
+    color:#1f1f1f;
+  }
+
+  /* placeholder um pouco mais suave */
+  input::placeholder{ color:#888; }
+
+  /* espaço p/ ícone na esquerda */
+  .search-field{
+    .p-inputtext{ padding-left: 2.25rem; }
+    .pi-search{
+      font-size:1rem;
+      left:.75rem;              /* alinha no mesmo padding */
+      color:#666;
+    }
+  }
+}
+
+/* ========= BORDA DA IMAGEM SEM VAZAR ========= */
+.product-card{
+  overflow:hidden;              /* corta qualquer overflow */
+}
+
+/* opcional: garante que a imagem cubra toda a largura */
+.product-image-container{
+  aspect-ratio:4/3;             /* ou 1/1 se preferir quadrado */
+}
+.material-icons{ font-size:1.2rem; line-height:1; }
+/* ====================  DESKTOP TWEAKS  ==================== */
+@media (min-width: 768px){             /* só acima de tablet */
+  /* 1)  mesmo tamanho de “slot” no CSS Grid  */
+  .product-grid{
+    grid-template-columns: repeat(auto-fill,minmax(190px,1fr));
+  }
+
+  /* 2)  cartão ocupa _exatamente_ a célula */
+  .product-card{
+    height:100%;                       /* estica até preencher o row 1fr   */
+    overflow:hidden;                   /* nada sai para fora               */
+  }
+}
+
+/* 3)  título do produto – 2 linhas, depois “…” */
+.product-name{
+  min-height: 2.8em;                   /* reserva espaço p/ 2 linhas       */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;                 /* permite quebra, mas só 2 linhas  */
+}
+
+/* 4)  garante que o footer cole no fundo mesmo com texto curto */
+.p-card-footer{
+  margin-top: auto;                    /* já tinha → mantém                */
+}
+
+/* 5)  ícone de busca (se usar material-icons) alinhado */
+.search-field .material-icons{
+  font-size: 1.2rem;
+  color:#666;
+  position:absolute;
+  left:.8rem; top:50%;
+  transform:translateY(-50%);
+}
+.search-field .p-inputtext{ padding-left:2.4rem; }
+.color{
+  color: black !important;
+}
+/* =========================================================
+   1)  TÍTULO DA CATEGORIA NO DESKTOP
+   ========================================================= */
+   @media (min-width: 768px){
+    .product-grid{
+      /* cada título ocupa a linha inteira */
+      .cat-title{
+        grid-column: 1 / -1;              /* span all columns        */
+        border-left: none;                /* remove linha vertical   */
+        border-bottom: 2px solid var(--brand);
+        padding-left: 0;
+        margin: 1.75rem 0 .75rem;
+        font-size: 1.35rem;
+      }
+    }
+  }
+
+  /* mobile (já estava ok) – mantém borda à esquerda */
+  @media (max-width: 767px){
+    .cat-title{
+      border-left: 4px solid var(--brand);
+      border-bottom: none;
+      padding-left: .6rem;
+    }
+  }
+
+  /* =========================================================
+     2)  CONTROLE DE QUANTIDADE MAIS LIMPO
+     ========================================================= */
+  .quantity-controls{
+    justify-content: center;              /* centraliza conjunto     */
+
+    .p-button{
+      width:34px;height:34px;
+      border-radius:8px;
+    }
+
+    .quantity-value{
+      width:40px;
+      height:34px;
+      line-height:34px;
+      background:#fff;
+      border-radius:8px;
+      font-weight:600;
+      font-size:.95rem;
+      margin: 0 .25rem;                   /* espaço interno          */
+    }
+  }
+
+  /* =========================================================
+     3)  CORREÇÃO DO DROPDOWN (rótulo & itens)
+     ========================================================= */
+  .filters-section{
+    /* label visível mesmo selecionado */
+    .p-dropdown{
+      .p-dropdown-label{ color:#1f1f1f !important; }
+
+      /* placeholder cinza claro */
+      &.p-placeholder .p-dropdown-label{ color:#000000 !important; }
+    }
+  }
+
+  /* lista de opções ao abrir */
+  :host ::ng-deep .p-dropdown-panel .p-dropdown-item{
+    color:#1f1f1f;
+  }
+/* =========================================================
+   DROPDOWN CLARO (panel e rótulo fechado)
+   ========================================================= */
+
+/* Caixa fechada */
+.p-dropdown{
+  border:1px solid #ddd !important;
+
+  /* texto visível */
+  .p-dropdown-label{
+    color:#1f1f1f !important;
+  }
+
+  /* seta/caret */
+  .p-dropdown-trigger-icon{
+    color:#666 !important;
+  }
+}
+
+/* Painel aberto */
+:host ::ng-deep .p-dropdown-panel{
+  background:#fff !important;
+  border:1px solid #ddd !important;
+}
+
+/* Itens dentro do painel */
+:host ::ng-deep .p-dropdown-item{
+  color:#1f1f1f !important;
+}
+
+/* Item selecionado (highlight) */
+:host ::ng-deep .p-dropdown-item.p-highlight{
+  background:var(--brand-dark) !important;  /* marrom */
+  color:#000000 !important;
+}
+
+
+
+
+
+
+/* -------- CARD DE PRODUTO -------- */
+.product-card{
+  /* …já existe… */
+  overflow: hidden;            /* <── garante que nada saia do card   */
+  border-radius: var(--radius);
+
+  /* se quiser sombra visível além do radius, remova overflow e deixe
+     apenas no container de imagem – mas o mais simples é assim       */
+}
+
+/* container da imagem */
+.product-image-container{
+  width: 100%;
+  aspect-ratio: 4 / 3;         /* mais legível que padding-top        */
+  overflow: hidden;            /* recorte interno                     */
+}
+
+/* própria imagem */
+.product-image{
+  width: 100%;
+  height: 100%;
+  display: block;              /* remove pequeno gap inline-img       */
+  object-fit: cover;
+  border-top-left-radius: var(--radius);
+  border-top-right-radius: var(--radius);
+}
+/* ========= COR & PADDING EM INPUTS ========= */
+.filters-section{
+
+  /* texto visível */
+  .p-inputtext, .p-dropdown-label{
+    color:#1f1f1f;
+  }
+}
+
+.p-inputtext{
+  height: 58px;                /* altura consistente com o botão    */
+}
+
+.product-name{
+  min-height: 2.8em;                   /* reserva espaço p/ 2 linhas       */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;                 /* permite quebra, mas só 2 linhas  */
+}
+
+.img{
+  width: 100%;
+  max-height: 320px;
+  display: block;              /* remove pequeno gap inline-img       */
+  object-fit: cover;
+  border-top-left-radius: var(--radius);
+  border-top-right-radius: var(--radius);
+}
+.header{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+}
+// ...existing code...
+
+.floating-cart-button {
+  position: fixed; // Fixa o botão em relação à viewport
+  top: 20px;       // Distância do topo
+  right: 20px;      // Distância da direita
+  z-index: 1000;    // Garante que fique acima da maioria dos outros elementos
+  background-color: var(--brand-dark); // Cor de fundo (ajuste conforme seu tema)
+  color: white;
+  width: 50px;      // Largura do botão
+  height: 50px;     // Altura do botão
+  border-radius: 50%; // Torna o botão redondo
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); // Sombra para dar destaque
+  transition: transform 0.2s ease-in-out;
+
+  &:hover {
+    transform: scale(1.1); // Efeito de zoom ao passar o mouse
+  }
+
+  .material-icons {
+    font-size: 24px;
+  }
+
+  .floating-cart-badge {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    // Ajustes finos para o posicionamento do badge, se necessário
+  }
+}
+
+/* ==================== Carrinho ==================== */
+.cart-list {
+  margin-bottom: 1.5rem;
+}
+
+.cart-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 0;          // espaçamento maior
+  border-bottom: 1px solid var(--surface-border, #e0e0e0);
+
+  .left {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    color: #fff !important;
+  }
+
+  .name       { font-weight: 500; }
+  .qty        { width: 1.5rem; text-align: center; }
+  .item-total { font-weight: 600; }
+}
