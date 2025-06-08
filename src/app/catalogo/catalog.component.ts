@@ -74,28 +74,39 @@ export class CatalogComponent implements OnInit {
   }
 
   /* ciclo de vida */
-  async ngOnInit(){
-    this.all = await this.supa.getCatalog();
-    this.categories = ['Todos',...new Set(this.all.map(p=>p.categoria))];
-    this.applyFilters();
+  async ngOnInit() {
+
+
+/* Dentro de ngOnInit, logo depois de obter this.all */
+this.all = await this.supa.getCatalog()
+
+/* 1A) normaliza categoria (tira espaços extras) -------------------- */
+this.all.forEach(p => p.categoria = (p.categoria ?? '').trim());
+
+/* 1B) ordena para ficar tudo agrupado por categoria, depois por nome */
+this.all.sort((a, b) => {
+  const c = a.categoria.localeCompare(b.categoria, 'pt');
+  return c !== 0 ? c : a.name.localeCompare(b.name, 'pt');
+});
+
+/* categorias únicas, já normalizadas */
+this.categories = ['Todos', ...new Set(this.all.map(p => p.categoria))];
+this.applyFilters();
+
   }
 
-/* 1) placeholder sempre que o produto não tiver `img_url`  */
-randomImg(seed: string|number) {
-  /* Picsum devolve direto uma imagem jpeg – sem redirect */
-  return `https://picsum.photos/seed/${seed}/400/400`;
-}
-
-
-  /* ───── FILTRO + PAGINAÇÃO ───── */
-  applyFilters(){
+  applyFilters() {
     const term = this.searchTerm.toLowerCase();
+
+    /* só filtra, sem reordenar — a ordenação já foi feita em ngOnInit */
     this.filtered = this.all.filter(p =>
-      (this.catFilter==='Todos'||p.categoria===this.catFilter) &&
+      (this.catFilter === 'Todos' || p.categoria === this.catFilter) &&
       (!term || p.name.toLowerCase().includes(term))
     );
-    this.onPageChange({page:0,rows:this.rows});
+
+    this.onPageChange({ page: 0, rows: this.rows });
   }
+
   onPageChange(e:{page:number,rows:number}){
     this.page = e.page;
     this.rows = e.rows;

@@ -67,7 +67,7 @@
           <ng-template pTemplate="header">
             <div class="product-image-container">
               <img
-              [src]="prod.img_url || randomImg(prod.id)"
+              [src]="prod.img_url || placeholder"
               [alt]="prod.name"
               class="product-image"
             />
@@ -113,7 +113,7 @@
 <ng-container *ngIf="selectedProduct">
 <div class="product-preview-content grid">
   <div class="col-12 md:col-6">
-    <img [src]="selectedProduct.img_url || randomImg(selectedProduct.id)" [alt]="selectedProduct.name" class="img">
+    <img [src]="selectedProduct.img_url || placeholder" [alt]="selectedProduct.name" class="img">
   </div>
   <div class="col-12 md:col-6 flex flex-column justify-content-between">
     <div>
